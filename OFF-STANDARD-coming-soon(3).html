@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF STANDARD — Coming Soon</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f3f0e8;
+    --ink: #111;
+    --muted: #77736b;
+    --line: rgba(17,17,17,.14);
+    --accent: #c98787;
+  }
+
+  html, body {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Lexend", sans-serif;
+    overflow: hidden;
+  }
+
+  .page {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Subtle editorial grid */
+  .grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .48;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 25% 100%, 100% 50%;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+  }
+
+  .grid::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: var(--line);
+  }
+
+  header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 5;
+  }
+
+  /* Replace this text with your exact existing logo asset if desired.
+     This treatment intentionally does NOT use Lexend. */
+  .brand {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: -.075em;
+    line-height: .82;
+    text-transform: uppercase;
+  }
+
+  .brand span {
+    display: block;
+  }
+
+  .meta {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    animation: blink 1.6s steps(1, end) infinite;
+  }
+
+  @keyframes blink {
+    0%, 48% { opacity: 1; }
+    49%, 68% { opacity: .25; }
+    69%, 100% { opacity: 1; }
+  }
+
+  main {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 92px 24px 78px;
+    transform: translateY(-2vh);
+  }
+
+  .eyebrow {
+    margin-bottom: 18px;
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .wordmark {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+    cursor: crosshair;
+    user-select: none;
+  }
+
+  .off,
+  .standard {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .off {
+    font-size: clamp(76px, 12vw, 160px);
+    letter-spacing: -.10em;
+    line-height: .72;
+    transform: translateX(-.045em);
+  }
+
+  .standard {
+    font-size: clamp(51px, 8.2vw, 118px);
+    letter-spacing: -.102em;
+    line-height: .84;
+    transition: transform .16s cubic-bezier(.2,.8,.2,1),
+                letter-spacing .25s ease;
+    will-change: transform;
+  }
+
+  .wordmark:hover .standard {
+    letter-spacing: -.078em;
+  }
+
+  .wordmark::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -14px;
+    width: 38px;
+    height: 1px;
+    background: var(--ink);
+    opacity: .4;
+    transform: translateX(-50%);
+  }
+
+  .coming {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 13px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  .coming::before,
+  .coming::after {
+    content: "";
+    width: 17px;
+    height: 1px;
+    background: var(--ink);
+    opacity: .35;
+  }
+
+  .message h1 {
+    font-size: clamp(12px, 1.2vw, 14px);
+    font-weight: 600;
+    letter-spacing: .045em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .message p {
+    font-size: 10px;
+    line-height: 1.65;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .launch-note {
+    margin-top: 19px;
+    font-size: 7px;
+    font-weight: 500;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .launch-note strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .side-label {
+    position: absolute;
+    z-index: 3;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+    font-size: 7px;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .side-number {
+    position: absolute;
+    z-index: 3;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7px;
+    font-weight: 500;
+    letter-spacing: .15em;
+    color: var(--muted);
+  }
+
+  footer {
+    position: absolute;
+    z-index: 5;
+    left: 40px;
+    right: 40px;
+    bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 7px;
+    font-weight: 400;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    color: inherit;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--ink);
+  }
+
+  .corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    z-index: 4;
+    opacity: .5;
+  }
+
+  .corner::before,
+  .corner::after {
+    content: "";
+    position: absolute;
+    background: var(--ink);
+  }
+
+  .corner::before { width: 1px; height: 28px; }
+  .corner::after { width: 28px; height: 1px; }
+
+  .corner.tl { top: 92px; left: 40px; }
+  .corner.tr { top: 92px; right: 40px; transform: rotate(90deg); }
+  .corner.bl { bottom: 66px; left: 40px; transform: rotate(-90deg); }
+  .corner.br { bottom: 66px; right: 40px; transform: rotate(180deg); }
+
+  @media (max-width: 600px) {
+    body { overflow: hidden; }
+
+    header {
+      padding: 22px;
+    }
+
+    .brand {
+      font-size: 14px;
+    }
+
+    .meta {
+      font-size: 7px;
+    }
+
+    .grid {
+      background-size: 50% 100%, 100% 33.33%;
+    }
+
+    .grid::after {
+      display: none;
+    }
+
+    main {
+      padding: 85px 18px 75px;
+      transform: translateY(-1vh);
+    }
+
+    .eyebrow {
+      font-size: 7px;
+      margin-bottom: 16px;
+    }
+
+    .wordmark {
+      margin-bottom: 28px;
+    }
+
+    .off {
+      font-size: clamp(63px, 21vw, 105px);
+    }
+
+    .standard {
+      font-size: clamp(43px, 14vw, 77px);
+    }
+
+    .coming {
+      font-size: 8px;
+      margin-bottom: 11px;
+    }
+
+    .message h1 {
+      font-size: 10px;
+    }
+
+    .message p {
+      font-size: 8.5px;
+    }
+
+    .launch-note {
+      margin-top: 16px;
+      font-size: 6.5px;
+    }
+
+    .side-label,
+    .side-number {
+      display: none;
+    }
+
+    footer {
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
+      font-size: 6.5px;
+    }
+
+    .footer-links {
+      gap: 12px;
+    }
+
+    .corner {
+      display: none;
+    }
+  }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <div class="grid"></div>
+
+  <header>
+    <div class="brand">
+      <span>OFF</span>
+      <span>STANDARD</span>
+    </div>
+
+    <div class="meta">In the making</div>
+  </header>
+
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="side-label">Outside the standard</div>
+  <div class="side-number">EST 2026</div>
+
+  <main>
+    <div class="eyebrow">Something different is coming</div>
+
+    <div class="wordmark" id="wordmark">
+      <span class="off">OFF</span>
+      <span class="standard" id="standard">STANDARD</span>
+    </div>
+
+    <section class="message">
+      <div class="coming">Coming Soon</div>
+
+      <h1>The standard is loading.</h1>
+
+      <p>
+        Not everything needs to fit in.<br>
+        Welcome to something off standard.
+      </p>
+    </section>
+
+    <div class="launch-note">
+      No fixed date. <strong>Just the right time.</strong>
+    </div>
+  </main>
+
+  <footer>
+    <span></span>
+
+    <div class="footer-links">
+      <a href="https://www.instagram.com/wear_offstandard?stkn=dWJoeWM0Zjh6bmN0&utm_source=qr"
+         target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="mailto:offstandardclothing@gmail.com">Contact</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const wordmark = document.getElementById("wordmark");
+  const standard = document.getElementById("standard");
+
+  wordmark.addEventListener("mousemove", (e) => {
+    const r = wordmark.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - .5) * 2;
+    const y = ((e.clientY - r.top) / r.height - .5) * 2;
+
+    standard.style.transform =
+      `translate(${x * 7}px, ${y * 3}px) skewX(${x * 1.8}deg)`;
+  });
+
+  wordmark.addEventListener("mouseleave", () => {
+    standard.style.transform = "translate(0,0) skewX(0deg)";
+  });
+</script>
+
+</body>
+</html>
